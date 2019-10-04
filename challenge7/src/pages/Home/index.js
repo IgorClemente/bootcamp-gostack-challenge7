@@ -4,6 +4,7 @@ import { FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { formatPrice } from '../../util/format';
 
+import NavigationService from '../../services/navigation';
 import api from '../../services/api';
 
 import {
@@ -35,14 +36,16 @@ export default class Home extends Component {
   };
 
   renderProduct({ item }) {
-    const { navigation } = this.props;
-
     return (
       <Product key={item.id}>
         <ProductImage source={{ uri: item.image }}></ProductImage>
         <ProductTitle>{item.title}</ProductTitle>
         <ProductPrice>{item.priceFormatted}</ProductPrice>
-        <AddCart onPress={() => {}}>
+        <AddCart
+          onPress={() => {
+            NavigationService.navigate('Cart');
+          }}
+        >
           <ProductAmount>
             <Icon name="add-shopping-cart" color="#fff" size={20} />
             <ProductAmountText>0</ProductAmountText>
