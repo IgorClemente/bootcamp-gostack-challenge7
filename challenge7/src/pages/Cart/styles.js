@@ -9,31 +9,45 @@ export const Container = Styled.View`
 `;
 
 export const Products = Styled.FlatList`
-  padding: 12px;
-  margin: 12px;
-  background: #333;
+  padding: 5px;
 `;
 
 export const Product = Styled.View`
-  flex: 1;
-  background: #333;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
 `;
 
 export const ProductImage = Styled.Image`
-  flex: 1;
-  width: 100px;
-  height: 100px;
+  width: 60px;
+  height: 60px;
 `;
 
-export const ProductTitle = Styled.Text`
+export const ProductTitle = Styled.Text.attrs({
+  numberOfLines: 2,
+})`
   font-size: 14px;
-  font-weight: bold;
 `;
 
 export const ProductPrice = Styled.Text`
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
-  color: #999;
+  margin-top: 5px;
 `;
+
+export const ProductDetails = Styled.View`
+  flex-direction: column;
+  text-align: left;
+  margin: 0 5px;
+`;
+
+export const ProductDelete = Styled.TouchableOpacity``;
+
+export const ProductQuantity = Styled.InputText``;
+
+export const ProductControls = Styled.View`
+  background: #eee;
+`;
+
+export const ProductControlsButton = Styled.TouchableOpacity``;
+export const ProductInfo = Styled.View``;
