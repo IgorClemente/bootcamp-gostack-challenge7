@@ -4,6 +4,10 @@ import { Container } from './styles';
 
 export default class Home extends Component {
   render() {
-    return <Container />;
+    return (
+      <Container>
+        <Products></Products>
+      </Container>
+    );
   }
 }
