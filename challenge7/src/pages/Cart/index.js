@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 
 import {
   Container,
@@ -13,46 +14,38 @@ import {
   ProductControls,
   ProductControlsButton,
   ProductInfo,
+  TotalOrder,
+  ProductControlsQuantity,
+  OrderContainer,
+  OrderTotal,
+  OrderTotalTitle,
+  OrderTotalValue,
+  OrderFinalizeButton,
+  OrderFinalizeButtonText,
 } from './styles';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export default class Home extends Component {
-  state = {
-    cart: [
-      {
-        id: 1,
-        title: 'Tênis de Caminhada Leve Confortável',
-        price: 179.9,
-        priceFormatted: 'R$ 129,90',
-        image:
-          'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg',
-      },
-    ],
-  };
-
-  render() {
-    const { cart } = this.state;
-    const { product } = this.props;
-
-    return (
-      <Container>
-        <Products
-          data={cart}
-          keyExtractor={item => item.id}
-          renderItem={({ item }) => (
-            <Product>
-              <ProductInfo>
-                <ProductImage source={{ uri: item.image }}></ProductImage>
-                <ProductDetails>
-                  <ProductTitle>{item.title}</ProductTitle>
-                  <ProductPrice>{item.priceFormatted}</ProductPrice>
-                </ProductDetails>
-                <ProductDelete>
-                  <Icon name="delete-forever" color="#7159c1" size={24} />
-                </ProductDelete>
-              </ProductInfo>
-              <ProductControls>
+function Cart({ cart }) {
+  return (
+    <Container>
+      <Products
+        data={cart}
+        keyExtractor={item => item.id}
+        renderItem={({ item }) => (
+          <Product>
+            <ProductInfo>
+              <ProductImage source={{ uri: item.image }}></ProductImage>
+              <ProductDetails>
+                <ProductTitle>{item.title}</ProductTitle>
+                <ProductPrice>{item.priceFormatted}</ProductPrice>
+              </ProductDetails>
+              <ProductDelete>
+                <Icon name="delete-forever" color="#7159c1" size={24} />
+              </ProductDelete>
+            </ProductInfo>
+            <ProductControls>
+              <ProductControlsQuantity>
                 <ProductControlsButton onPress={() => {}}>
                   <Icon
                     name="remove-circle-outline"
@@ -60,15 +53,34 @@ export default class Home extends Component {
                     color="#7159c1"
                   />
                 </ProductControlsButton>
-                <ProductQuantity type="number" value={0} />
+                <ProductQuantity editable={false} value={'0'} />
                 <ProductControlsButton onPress={() => {}}>
                   <Icon name="add-circle-outline" size={20} color="#7159c1" />
                 </ProductControlsButton>
-              </ProductControls>
-            </Product>
-          )}
-        />
-      </Container>
-    );
-  }
+              </ProductControlsQuantity>
+              <TotalOrder>R$1290,00</TotalOrder>
+            </ProductControls>
+          </Product>
+        )}
+      />
+      <OrderContainer>
+        <OrderTotal>
+          <OrderTotalTitle>TOTAL</OrderTotalTitle>
+          <OrderTotalValue>R$1280,45</OrderTotalValue>
+        </OrderTotal>
+        <OrderFinalizeButton>
+          <OrderFinalizeButtonText>FINALIZAR PEDIDO</OrderFinalizeButtonText>
+        </OrderFinalizeButton>
+      </OrderContainer>
+    </Container>
+  );
 }
+
+const mapStateToProps = state => ({
+  cart: state.cart,
+});
+
+export default connect(
+  mapStateToProps,
+  null
+)(Cart);

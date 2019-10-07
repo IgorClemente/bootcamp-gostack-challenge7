@@ -46,11 +46,12 @@ export const ProductAmount = Styled.View`
   border-bottom-left-radius: 4px;
 
   flex-direction: row;
+  align-items: center;
 `;
 
 export const ProductAmountText = Styled.Text`
   color: #fff;
-  margin: 0 4px 0 10px;
+  margin: 0 4px 0 5px;
 `;
 
 export const AddCartText = Styled.Text`

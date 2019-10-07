@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { FlatList } from 'react-native';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { formatPrice } from '../../util/format';
+import api from '../../services/api';
+
+import * as CartActions from '../../store/modules/cart/actions';
 
 import NavigationService from '../../services/navigation';
-import api from '../../services/api';
 
 import {
   Container,
@@ -19,9 +24,18 @@ import {
   AddCartText,
 } from './styles';
 
-export default class Home extends Component {
+class Home extends Component {
   state = {
     products: [],
+  };
+
+  componentDidMount() {
+    this.getProducts();
+  }
+
+  handleAddProduct = item => {
+    const { addToCartRequest } = this.props;
+    addToCartRequest(item.id);
   };
 
   getProducts = async () => {
@@ -35,17 +49,13 @@ export default class Home extends Component {
     this.setState({ products: data });
   };
 
-  renderProduct({ item }) {
+  renderProduct = ({ item }) => {
     return (
       <Product key={item.id}>
         <ProductImage source={{ uri: item.image }}></ProductImage>
         <ProductTitle>{item.title}</ProductTitle>
         <ProductPrice>{item.priceFormatted}</ProductPrice>
-        <AddCart
-          onPress={() => {
-            NavigationService.navigate('Cart');
-          }}
-        >
+        <AddCart onPress={() => this.handleAddProduct(item)}>
           <ProductAmount>
             <Icon name="add-shopping-cart" color="#fff" size={20} />
             <ProductAmountText>0</ProductAmountText>
@@ -54,11 +64,7 @@ export default class Home extends Component {
         </AddCart>
       </Product>
     );
-  }
-
-  componentDidMount() {
-    this.getProducts();
-  }
+  };
 
   render() {
     const { products } = this.state;
@@ -69,6 +75,7 @@ export default class Home extends Component {
           horizontal
           showsHorizontalScrollIndicator={false}
           data={products}
+          extraData={this.props}
           keyExtractor={item => String(item.id)}
           renderItem={this.renderProduct}
         />
@@ -76,3 +83,11 @@ export default class Home extends Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(CartActions, dispatch);
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Home);
