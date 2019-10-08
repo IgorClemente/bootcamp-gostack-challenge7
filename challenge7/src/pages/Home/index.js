@@ -87,6 +87,10 @@ class Home extends Component {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(CartActions, dispatch);
 
+const mapStateToProps = state => ({
+  products: state.cart.reduce(product => ({}), {}),
+});
+
 export default connect(
   null,
   mapDispatchToProps

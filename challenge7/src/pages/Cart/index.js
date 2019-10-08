@@ -27,6 +27,10 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 function Cart({ cart }) {
+  handleUpdateAmountIncrement = () => {};
+
+  handleUpdateAmountDecrement = () => {};
+
   return (
     <Container>
       <Products
@@ -46,15 +50,19 @@ function Cart({ cart }) {
             </ProductInfo>
             <ProductControls>
               <ProductControlsQuantity>
-                <ProductControlsButton onPress={() => {}}>
+                <ProductControlsButton
+                  onPress={() => this.handleUpdateAmountDecrement}
+                >
                   <Icon
                     name="remove-circle-outline"
                     size={20}
                     color="#7159c1"
                   />
                 </ProductControlsButton>
-                <ProductQuantity editable={false} value={'0'} />
-                <ProductControlsButton onPress={() => {}}>
+                <ProductQuantity editable={false} value={String(item.amount)} />
+                <ProductControlsButton
+                  onPress={() => this.handleUpdateAmountIncrement}
+                >
                   <Icon name="add-circle-outline" size={20} color="#7159c1" />
                 </ProductControlsButton>
               </ProductControlsQuantity>
