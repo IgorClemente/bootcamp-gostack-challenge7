@@ -127,3 +127,17 @@ export const OrderFinalizeButtonText = Styled.Text`
   font-weight: bold;
   text-align: center;
 `;
+
+export const ContainerEmpty = Styled.View`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const EmptyText = Styled.Text`
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #000;
+`;

@@ -17,6 +17,16 @@ export default function cart(state = [], action) {
           draft[productIndex].amount = Number(action.amount);
         }
       });
+    case '@cart/DELETE_SUCCESS':
+      return produce(state, draft => {
+        const productIndex = draft.findIndex(
+          product => product.id === action.id
+        );
+
+        if (productIndex >= 0) {
+          draft.splice(productIndex, 1);
+        }
+      });
     default:
       return state;
   }

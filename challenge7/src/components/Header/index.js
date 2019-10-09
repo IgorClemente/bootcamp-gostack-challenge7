@@ -11,12 +11,12 @@ import {
   CartQuantity,
 } from './styles';
 
-function Header({ amount }) {
+function Header({ amount, navigation }) {
   return (
     <Wrapper>
       <Container>
         <Logo />
-        <BasketContainer>
+        <BasketContainer onPress={() => navigation.navigate('Cart')}>
           <Icon name="shopping-basket" color="#FFF" size={24} />
           <CartQuantity>{amount || 0}</CartQuantity>
         </BasketContainer>

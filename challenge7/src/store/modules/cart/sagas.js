@@ -41,8 +41,8 @@ function* addToCart({ id }) {
   }
 }
 
-function* updateAmount(id, amount) {
-  if (amount < 0) {
+function* updateAmount({ id, amount }) {
+  if (amount <= 0) {
     return;
   }
 
@@ -51,6 +51,7 @@ function* updateAmount(id, amount) {
 
   if (amount > stockAmount) {
     Alert.alert('Quantidade do produto fora de estoque');
+    return;
   }
 
   yield put(updateAmountSuccess(id, amount));
