@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { FlatList } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -9,8 +9,6 @@ import { formatPrice } from '../../util/format';
 import api from '../../services/api';
 
 import * as CartActions from '../../store/modules/cart/actions';
-
-import NavigationService from '../../services/navigation';
 
 import {
   Container,
